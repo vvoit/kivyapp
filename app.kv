@@ -1,0 +1,67 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+ScreenManagement:
+    transition: FadeTransition()
+    MainScreen
+
+<MainScreen>:
+    name: 'main'
+
+    GridLayout:
+        rows: 3
+        padding: 150
+        spacing: 50
+
+        Button:
+            on_release:
+                root.start_parse()
+
+            text: 'Parse'
+            font_size: '25sp'
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+
+        Button:
+            on_release: app.root.viewDB_screen()
+
+            text: 'Show'
+            font_size: '25sp'
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+
+        Button:
+            on_release:
+                root.clear()
+
+            text: 'Clear'
+            font_size: '25sp'
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
+
+<AnotherScreen>:
+    BoxLayout:
+        RecycleView:
+            data: [{'text': str(x)} for x in root.rows]
+            viewclass: "Label"
+            RecycleBoxLayout:
+                default_size: None, sp(25)
+                default_size_hint: 1, None
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: "vertical"
+
+
+
+    BoxLayout:
+        size_hint: 1, 0.15
+
+        Button:
+            on_release: app.root.current = 'main'
+            text: 'back to the home screen'
+            font_size: '25sp'
+            halign: 'center'
+            valign: 'middle'
+            text_size: self.size
